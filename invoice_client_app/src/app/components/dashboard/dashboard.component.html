@@ -1,0 +1,69 @@
+<div class="dashboard-container">
+  <h2>Tableau de bord</h2>
+
+  <div *ngIf="isLoading" class="loading">
+    Chargement des statistiques...
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="dashboard-content">
+    <div class="stats-section">
+      <div class="stat-card">
+        <div class="stat-title">Factures traitées</div>
+        <div class="stat-value">{{ modelStats?.total_invoices || 0 }}</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-title">Données d'entraînement</div>
+        <div class="stat-value">{{ modelStats?.training_data_count || 0 }}</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-title">Utilisées pour l'entraînement</div>
+        <div class="stat-value">{{ modelStats?.used_for_training || 0 }}</div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-title">En attente d'entraînement</div>
+        <div class="stat-value">{{ modelStats?.pending_training || 0 }}</div>
+      </div>
+    </div>
+
+    <div class="model-info">
+      <h3>Modèle actif</h3>
+      <div *ngIf="modelStats?.active_model" class="model-details">
+        <div class="model-detail">
+          <span class="detail-label">Nom:</span>
+          <span class="detail-value">{{ modelStats?.active_model?.name }}</span>
+        </div>
+        <div class="model-detail">
+          <span class="detail-label">Version:</span>
+          <span class="detail-value">{{ modelStats?.active_model?.version }}</span>
+        </div>
+        <div class="model-detail">
+          <span class="detail-label">Précision:</span>
+          <span class="detail-value">{{ (modelStats?.active_model?.accuracy || 0) * 100 | number:'1.2-2' }}%</span>
+        </div>
+        <div class="model-detail">
+          <span class="detail-label">Date de création:</span>
+          <span class="detail-value">{{ modelStats?.active_model?.created_at | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      </div>
+      <div *ngIf="!modelStats?.active_model" class="no-model">
+        Aucun modèle actif. Téléchargez et validez des factures pour entraîner un modèle.
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="upload-btn" (click)="uploadNewInvoice()">
+        Télécharger une nouvelle facture
+      </button>
+      <button class="refresh-btn" (click)="loadModelStats()">
+        Actualiser les statistiques
+      </button>
+    </div>
+  </div>
+</div>

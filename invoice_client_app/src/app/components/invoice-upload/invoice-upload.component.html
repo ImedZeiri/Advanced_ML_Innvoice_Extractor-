@@ -1,0 +1,36 @@
+<div class="upload-container">
+  <h2>Télécharger une facture</h2>
+  
+  <div class="upload-box" [class.drag-over]="dragOver" (dragover)="dragOver=true; $event.preventDefault()" 
+       (dragleave)="dragOver=false" (drop)="dragOver=false; onFileSelected($event); $event.preventDefault()">
+    <div class="upload-icon">
+      <i class="fas fa-cloud-upload-alt"></i>
+    </div>
+    <p>Glissez-déposez votre facture ici ou</p>
+    <label class="file-input-label">
+      <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png">
+      Parcourir
+    </label>
+    <p *ngIf="selectedFile" class="selected-file">
+      Fichier sélectionné: {{ selectedFile.name }}
+    </p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <button class="upload-button" [disabled]="!selectedFile || isLoading" (click)="uploadInvoice()">
+    <span *ngIf="!isLoading">Analyser la facture</span>
+    <span *ngIf="isLoading">Traitement en cours...</span>
+  </button>
+
+  <div class="info-box">
+    <h3>Formats supportés</h3>
+    <ul>
+      <li>PDF</li>
+      <li>Images (JPG, PNG)</li>
+    </ul>
+    <p>Notre système d'IA va extraire automatiquement les informations importantes de votre facture.</p>
+  </div>
+</div>

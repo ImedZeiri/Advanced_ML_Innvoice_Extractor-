@@ -1,0 +1,102 @@
+<div class="invoice-view-container" *ngIf="extractedData">
+  <h2>Résultat de l'extraction</h2>
+  <p class="file-info">Fichier: {{ originalFile }}</p>
+
+  <div class="invoice-data">
+    <div class="data-section">
+      <h3>Informations de la facture</h3>
+      <div class="form-group">
+        <label>Numéro de facture</label>
+        <input type="text" [(ngModel)]="extractedData.extracted_data.invoice_number">
+      </div>
+      <div class="form-group">
+        <label>Date</label>
+        <input type="text" [(ngModel)]="extractedData.extracted_data.date">
+      </div>
+      <div class="form-group">
+        <label>Date d'échéance</label>
+        <input type="text" [(ngModel)]="extractedData.extracted_data.due_date">
+      </div>
+      <div class="form-group">
+        <label>Montant total</label>
+        <input type="number" [(ngModel)]="extractedData.extracted_data.total_amount">
+      </div>
+      <div class="form-group">
+        <label>Montant TVA</label>
+        <input type="number" [(ngModel)]="extractedData.extracted_data.tax_amount">
+      </div>
+    </div>
+
+    <div class="data-section">
+      <h3>Informations du fournisseur</h3>
+      <div class="form-group">
+        <label>Nom</label>
+        <input type="text" [(ngModel)]="extractedData.extracted_data.supplier.name">
+      </div>
+      <div class="form-group">
+        <label>Adresse</label>
+        <textarea [(ngModel)]="extractedData.extracted_data.supplier.address"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Numéro de TVA / SIRET</label>
+        <input type="text" [(ngModel)]="extractedData.extracted_data.supplier.tax_id">
+      </div>
+    </div>
+  </div>
+
+  <div class="items-section">
+    <h3>Éléments de la facture</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Quantité</th>
+          <th>Prix unitaire</th>
+          <th>Prix total</th>
+          <th>Taux TVA (%)</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of extractedData.extracted_data.items; let i = index">
+          <td><input type="text" [(ngModel)]="item.description"></td>
+          <td><input type="number" [(ngModel)]="item.quantity"></td>
+          <td><input type="number" [(ngModel)]="item.unit_price"></td>
+          <td><input type="number" [(ngModel)]="item.total_price"></td>
+          <td><input type="number" [(ngModel)]="item.tax_rate"></td>
+          <td>
+            <button class="delete-btn" (click)="extractedData.extracted_data.items.splice(i, 1)">
+              Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button class="add-item-btn" (click)="extractedData.extracted_data.items.push({description: '', quantity: 1, unit_price: 0, total_price: 0, tax_rate: 20})">
+      Ajouter un élément
+    </button>
+  </div>
+
+  <div class="original-text">
+    <h3>Texte extrait original</h3>
+    <div class="text-content">
+      <pre>{{ originalText }}</pre>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="back-btn" (click)="goBack()">Retour</button>
+    <button class="save-btn" [disabled]="isLoading" (click)="saveInvoice()">
+      <span *ngIf="!isLoading">Valider et enregistrer</span>
+      <span *ngIf="isLoading">Enregistrement...</span>
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+</div>
