@@ -1,0 +1,109 @@
+.dashboard-container {
+  padding: 1rem;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+  h1 {
+    margin: 0;
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  
+  p {
+    margin-top: 1rem;
+  }
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  
+  mat-icon {
+    font-size: 2.5rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: 1rem;
+  }
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.recent-invoices-card {
+  margin-bottom: 2rem;
+}
+
+.recent-invoices-table {
+  width: 100%;
+}
+
+.status-chip {
+  padding: 0.25rem 0.5rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  text-align: center;
+  min-width: 80px;
+}
+
+.status-validated {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+}
+
+.status-processed {
+  background-color: #bbdefb;
+  color: #1565c0;
+}
+
+.status-error {
+  background-color: #ffcdd2;
+  color: #c62828;
+}
+
+.status-pending {
+  background-color: #fff9c4;
+  color: #f9a825;
+}
+
+.no-invoices {
+  padding: 2rem;
+  text-align: center;
+  color: #666;
+}

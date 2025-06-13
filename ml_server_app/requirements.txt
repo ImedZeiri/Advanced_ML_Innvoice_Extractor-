@@ -2,3 +2,13 @@ django==5.2.3
 asgiref==3.8.1
 sqlparse==0.5.3
 typing-extensions==4.14.0
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+Pillow==10.2.0
+pytesseract==0.3.10
+pdf2image==1.17.0
+numpy==1.26.4
+scikit-learn
+pandas==2.2.1
+tensorflow
+opencv-python

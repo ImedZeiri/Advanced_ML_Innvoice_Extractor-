@@ -1,0 +1,101 @@
+.upload-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  
+  mat-card {
+    margin-bottom: 2rem;
+  }
+}
+
+.upload-area {
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  padding: 2rem;
+  text-align: center;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: #3f51b5;
+    background-color: rgba(63, 81, 181, 0.05);
+  }
+  
+  &.uploading {
+    border-style: solid;
+    cursor: default;
+  }
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  mat-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: #3f51b5;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: #666;
+  }
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  mat-icon {
+    margin-right: 0.5rem;
+    color: #3f51b5;
+  }
+}
+
+.upload-progress {
+  padding: 1rem;
+  
+  mat-progress-bar {
+    margin-bottom: 1rem;
+  }
+}
+
+.upload-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.result-card {
+  background-color: #f9f9f9;
+}
+
+.extraction-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+  
+  .result-item {
+    display: flex;
+    flex-direction: column;
+    
+    strong {
+      margin-bottom: 0.25rem;
+      color: #555;
+    }
+    
+    span {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+}

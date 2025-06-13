@@ -1,0 +1,88 @@
+<div class="upload-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Télécharger une facture</mat-card-title>
+      <mat-card-subtitle>Formats supportés: PDF, JPG, PNG</mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="upload-area" [class.uploading]="isUploading">
+        <input type="file" #fileInput style="display: none" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png">
+        
+        <div class="upload-placeholder" *ngIf="!selectedFile && !isUploading" (click)="fileInput.click()">
+          <mat-icon>cloud_upload</mat-icon>
+          <p>Cliquez pour sélectionner un fichier ou glissez-déposez ici</p>
+        </div>
+        
+        <div class="file-info" *ngIf="selectedFile && !isUploading">
+          <mat-icon>description</mat-icon>
+          <p>{{ selectedFile.name }}</p>
+          <button mat-icon-button color="warn" (click)="selectedFile = null">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+        
+        <div class="upload-progress" *ngIf="isUploading">
+          <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+          <p>Téléchargement en cours... {{ uploadProgress }}%</p>
+        </div>
+      </div>
+      
+      <div class="upload-actions">
+        <button mat-raised-button color="primary" [disabled]="!selectedFile || isUploading" (click)="uploadInvoice()">
+          <mat-icon>upload</mat-icon>
+          Télécharger
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  
+  <mat-card *ngIf="uploadResponse" class="result-card">
+    <mat-card-header>
+      <mat-card-title>Résultat de l'extraction</mat-card-title>
+      <mat-card-subtitle>
+        Score de confiance: {{ (uploadResponse.extracted_data.confidence_score * 100).toFixed(0) }}%
+      </mat-card-subtitle>
+    </mat-card-header>
+    
+    <mat-card-content>
+      <div class="extraction-results">
+        <div class="result-item">
+          <strong>Numéro de facture:</strong>
+          <span>{{ uploadResponse.extracted_data.invoice_number || 'Non détecté' }}</span>
+        </div>
+        
+        <div class="result-item">
+          <strong>Date:</strong>
+          <span>{{ uploadResponse.extracted_data.invoice_date || 'Non détectée' }}</span>
+        </div>
+        
+        <div class="result-item">
+          <strong>Montant total:</strong>
+          <span>{{ uploadResponse.extracted_data.total_amount | currency:'EUR' }}</span>
+        </div>
+        
+        <div class="result-item">
+          <strong>TVA:</strong>
+          <span>{{ uploadResponse.extracted_data.tax_amount | currency:'EUR' }}</span>
+        </div>
+        
+        <div class="result-item">
+          <strong>Fournisseur:</strong>
+          <span>{{ uploadResponse.extracted_data.supplier_name || 'Non détecté' }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+    
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="viewInvoice()">
+        <mat-icon>visibility</mat-icon>
+        Voir les détails
+      </button>
+      <button mat-raised-button color="accent" (click)="editInvoice()">
+        <mat-icon>edit</mat-icon>
+        Corriger les données
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

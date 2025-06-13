@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'invoice_client_app';
+  title = 'Système d\'extraction de factures';
 }
